@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>هايبر نت - إنترنت هوائي فائق السرعة</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:1.6; color:#e0e6ed; background: linear-gradient(135deg, #0a0e2e 0%, #1a0033 100%); min-height:100vh; padding:20px; overflow-x:hidden; }
+.container { max-width:650px; margin:0 auto; background:rgba(255,255,255,0.08); backdrop-filter:blur(20px); border-radius:25px; box-shadow:0 25px 60px rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1); overflow:hidden; animation:slideUp 1s ease-out; }
+@keyframes slideUp { from{opacity:0; transform:translateY(40px);} to{opacity:1; transform:translateY(0);} }
+.header { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e40af 100%); padding:50px 40px; text-align:center; color:white; position:relative; }
+.header::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background: linear-gradient(135deg, rgba(62,130,246,0.3) 0%, rgba(30,58,138,0.3) 100%); z-index:0; }
+.header > * { position:relative; z-index:1; }
+.logo { width:120px; height:120px; margin:0 auto 30px; background:rgba(255,255,255,0.15); backdrop-filter:blur(15px); border-radius:30px; display:flex; align-items:center; justify-content:center; box-shadow:0 20px 50px rgba(59,130,246,0.3); border:1px solid rgba(255,255,255,0.2); transition: all 0.4s ease; }
+.logo:hover { transform:scale(1.08) rotate(360deg); box-shadow:0 30px 70px rgba(59,130,246,0.5); }
+.logo svg { width:60px; height:60px; fill:none; stroke:#60a5fa; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+.logo-wave { stroke-dasharray:200; stroke-dashoffset:200; animation:drawWave 3s ease-in-out infinite; }
+@keyframes drawWave { 0%{stroke-dashoffset:200;} 50%{stroke-dashoffset:0;} 100%{stroke-dashoffset:-200;} }
+.header h1 { font-size:2.2rem; margin-bottom:15px; font-weight:800; text-shadow:0 4px 15px rgba(0,0,0,0.5); letter-spacing:-0.5px; }
+.header p { font-size:1.2rem; opacity:0.95; margin-bottom:25px; }
+.trust-points { display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-top:20px; }
+.trust-point { background:rgba(255,255,255,0.1); padding:12px 20px; border-radius:20px; backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); font-weight:600; font-size:0.95rem; transition: all 0.3s ease; min-width:140px; }
+.trust-point:hover { transform:translateY(-3px); background:rgba(255,255,255,0.2); box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+.form-container { padding:50px 40px; background:rgba(255,255,255,0.03); }
+.form-note { background:rgba(255,255,255,0.1); border-radius:15px; padding:20px; text-align:center; margin-bottom:30px; color:#b4c2f5; font-size:0.95rem; border:1px solid rgba(255,255,255,0.1); }
+.form-group { margin-bottom:30px; position:relative; }
+.form-group.floating label { position:absolute; left:60px; top:18px; font-size:0.9rem; color:#94a3b8; background:rgba(10,14,46,0.8); padding:0 8px; transition: all 0.3s ease; pointer-events:none; font-weight:500; }
+.form-group.floating input:focus + label, .form-group.floating input:valid + label, .form-group.floating select:focus + label, .form-group.floating select:valid + label, .form-group.floating textarea:focus + label, .form-group.floating textarea:valid + label { top:-8px; font-size:0.75rem; color:#60a5fa; }
+.form-group.required label::after { content:" *"; color:#f87171; }
+.form-group input, .form-group select, .form-group textarea { width:100%; padding:20px 20px 20px 60px; border:2px solid rgba(255,255,255,0.2); border-radius:18px; font-size:1rem; background:rgba(255,255,255,0.08); color:#e0e6ed; font-family:inherit; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); backdrop-filter:blur(10px); }
+.form-group input::placeholder, .form-group textarea::placeholder { color:#64748b; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:#60a5fa; background:rgba(255,255,255,0.15); box-shadow:0 0 0 4px rgba(96,165,250,0.2); transform:translateY(-2px); }
+.input-icon { position:absolute; left:22px; top:50%; transform:translateY(-50%); font-size:1.25rem; color:#94a3b8; z-index:2; transition: color 0.3s ease; }
+.form-group:focus-within .input-icon { color:#60a5fa; }
+.error-message { color:#f87171; font-size:0.85rem; margin-top:8px; display:none; animation:shake 0.5s ease-in-out; }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:25px; }
+@media(max-width:700px){.form-row{grid-template-columns:1fr;}}
+.submit-btn { width:100%; padding:22px; background: linear-gradient(135deg,#7c3aed 0%,#a855f7 100%); color:white; border:none; border-radius:18px; font-size:1.2rem; font-weight:700; cursor:pointer; transition:all 0.4s ease; text-shadow:0 2px 10px rgba(0,0,0,0.3); position:relative; overflow:hidden; }
+.success-message { display:none; background:linear-gradient(135deg,#10b981 0%,#34d399 100%); color:white; padding:25px; border-radius:18px; text-align:center; font-weight:600; font-size:1.1rem; margin-top:25px; animation:fadeInUp 0.6s ease; box-shadow:0 15px 40px rgba(16,185,129,0.4); }
+@keyframes fadeInUp { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<div class="logo">
+<svg viewBox="0 0 100 100">
+<path d="M 25 15 L 25 85" stroke="#60a5fa" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 75 15 L 75 85" stroke="#60a5fa" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 25 50 Q 45 48, 50 50 Q 55 52, 75 50" stroke="#93c5fd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="logo-wave"/>
+</svg>
+</div>
+<h1>إنترنت هوائي فائق السرعة من هايبر نت</h1>
+<p>استقرار عالي - تركيب سريع - تغطية واسعة</p>
+<div class="trust-points">
+<div class="trust-point">⚡ سرعة ثابتة</div>
+<div class="trust-point">📡 تغطية قوية</div>
+<div class="trust-point">🛠️ دعم فني مستمر</div>
+</div>
+</div>
+
+<div class="form-container">
+<div class="form-note">
+📝 سيتم التواصل معك خلال 24 ساعة لتأكيد الطلب وترتيب الزيارة
+</div>
+
+<!-- تم تعديل الـ action ليرسل البيانات إلى Formspree -->
+<form action="https://formspree.io/f/hypernet709@gmail.com" method="POST" id="subscriptionForm">
+<div class="form-row">
+<div class="form-group required floating">
+<input type="text" id="firstName" name="الاسم الأول" required>
+<label for="firstName">الاسم الأول</label>
+<div class="error-message" id="errorFirstName">الرجاء إدخال الاسم الأول</div>
+</div>
+<div class="form-group required floating">
+<input type="text" id="lastName" name="الاسم الثاني" required>
+<label for="lastName">الاسم الثاني</label>
+<div class="error-message" id="errorLastName">الرجاء إدخال الاسم الثاني</div>
+</div>
+</div>
+
+<div class="form-row">
+<div class="form-group required floating">
+<input type="tel" id="phone" name="رقم الموبايل" required pattern="09[0-9]{8}">
+<label for="phone">رقم الموبايل</label>
+<div class="error-message" id="errorPhone">الرجاء إدخال رقم صحيح</div>
+</div>
+<div class="form-group required floating">
+<input type="text" id="nationalId" name="الرقم الوطني" required pattern="\d{10}">
+<label for="nationalId">الرقم الوطني</label>
+<div class="error-message" id="errorNationalId">الرجاء إدخال رقم وطني صحيح</div>
+</div>
+</div>
+
+<div class="form-group required floating">
+<input type="text" id="address" name="عنوان السكن" required>
+<label for="address">عنوان السكن</label>
+<div class="error-message" id="errorAddress">الرجاء إدخال العنوان</div>
+</div>
+
+<div class="form-group required floating">
+<input type="text" id="landmark" name="أقرب نقطة دلالة" required>
+<label for="landmark">أقرب نقطة دلالة</label>
+<div class="error-message" id="errorLandmark">الرجاء إدخال نقطة دلالة</div>
+</div>
+
+<div class="form-row">
+<div class="form-group required floating">
+<input type="date" id="birthDate" name="تاريخ الولادة" required>
+<label for="birthDate">تاريخ الولادة</label>
+<div class="error-message" id="errorBirthDate">الرجاء اختيار تاريخ صحيح</div>
+</div>
+<div class="form-group required floating">
+<select id="subscriptionType" name="نوع الاشتراك" required>
+<option value="">اختر نوع الاشتراك</option>
+<option value="منزلي">منزلي</option>
+<option value="شركة">شركة</option>
+</select>
+<label for="subscriptionType">نوع الاشتراك</label>
+<div class="error-message" id="errorSubscriptionType">الرجاء اختيار نوع الاشتراك</div>
+</div>
+</div>
+
+<div class="form-group floating">
+<textarea id="notes" name="ملاحظات" rows="3" placeholder="ملاحظات إضافية..."></textarea>
+<label for="notes">ملاحظات</label>
+</div>
+
+<button type="submit" class="submit-btn">اشترك الآن</button>
+<div class="success-message" id="successMessage">✅ تم استلام طلبك بنجاح! سيتم التواصل معك خلال 24 ساعة</div>
+</form>
+</div>
+</div>
+
+<script>
+const form = document.getElementById('subscriptionForm');
+const successMessage = document.getElementById('successMessage');
+
+form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    
+    // تنظيف رسائل الخطأ
+    document.querySelectorAll('.error-message').forEach(el=>el.style.display='none');
+    
+    let valid = true;
+
+    // تحقق الاسم الأول
+    if(!form.firstName.value.trim()){ document.getElementById('errorFirstName').style.display='block'; valid=false; }
+    // تحقق الاسم الثاني
+    if(!form.lastName.value.trim()){ document.getElementById('errorLastName').style.display='block'; valid=false; }
+    // تحقق رقم الهاتف
+    if(!/^09\d{8}$/.test(form.phone.value)){ document.getElementById('errorPhone').style.display='block'; valid=false; }
+    // تحقق الرقم الوطني
+    if(!/^\d{10}$/.test(form.nationalId.value)){ document.getElementById('errorNationalId').style.display='block'; valid=false; }
+    // تحقق العنوان
+    if(!form.address.value.trim()){ document.getElementById('errorAddress').style.display='block'; valid=false; }
+    // تحقق نقطة الدلالة
+    if(!form.landmark.value.trim()){ document.getElementById('errorLandmark').style.display='block'; valid=false; }
+    // تحقق تاريخ الولادة
+    if(!form.birthDate.value){ document.getElementById('errorBirthDate').style.display='block'; valid=false; }
+    // تحقق نوع الاشتراك
+    if(!form.subscriptionType.value){ document.getElementById('errorSubscriptionType').style.display='block'; valid=false; }
+
+    if(valid){
+        const formData = new FormData(form);
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                form.reset();
+                successMessage.style.display='block';
+                window.scrollTo({top:0, behavior:'smooth'});
+            } else {
+                alert('حدث خطأ أثناء الإرسال، حاول لاحقاً');
+            }
+        } catch (error) {
+            alert('حدث خطأ في الاتصال، تأكد من الإنترنت');
+        }
+    }
+});
+</script>
+
+</body>
+</html>
