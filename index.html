@@ -66,16 +66,15 @@ body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:
 📝 سيتم التواصل معك خلال 24 ساعة لتأكيد الطلب وترتيب الزيارة
 </div>
 
-<!-- تم تعديل الـ action ليرسل البيانات إلى Formspree -->
-<form action="https://formspree.io/f/hypernet709@gmail.com" method="POST" id="subscriptionForm">
+<form id="subscriptionForm">
 <div class="form-row">
 <div class="form-group required floating">
-<input type="text" id="firstName" name="الاسم الأول" required>
+<input type="text" id="firstName" name="firstName" required>
 <label for="firstName">الاسم الأول</label>
 <div class="error-message" id="errorFirstName">الرجاء إدخال الاسم الأول</div>
 </div>
 <div class="form-group required floating">
-<input type="text" id="lastName" name="الاسم الثاني" required>
+<input type="text" id="lastName" name="lastName" required>
 <label for="lastName">الاسم الثاني</label>
 <div class="error-message" id="errorLastName">الرجاء إدخال الاسم الثاني</div>
 </div>
@@ -83,37 +82,37 @@ body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:
 
 <div class="form-row">
 <div class="form-group required floating">
-<input type="tel" id="phone" name="رقم الموبايل" required pattern="09[0-9]{8}">
+<input type="tel" id="phone" name="phone" required pattern="09[0-9]{8}">
 <label for="phone">رقم الموبايل</label>
 <div class="error-message" id="errorPhone">الرجاء إدخال رقم صحيح</div>
 </div>
 <div class="form-group required floating">
-<input type="text" id="nationalId" name="الرقم الوطني" required pattern="\d{10}">
+<input type="text" id="nationalId" name="nationalId" required pattern="\d{10}">
 <label for="nationalId">الرقم الوطني</label>
 <div class="error-message" id="errorNationalId">الرجاء إدخال رقم وطني صحيح</div>
 </div>
 </div>
 
 <div class="form-group required floating">
-<input type="text" id="address" name="عنوان السكن" required>
+<input type="text" id="address" name="address" required>
 <label for="address">عنوان السكن</label>
 <div class="error-message" id="errorAddress">الرجاء إدخال العنوان</div>
 </div>
 
 <div class="form-group required floating">
-<input type="text" id="landmark" name="أقرب نقطة دلالة" required>
+<input type="text" id="landmark" name="landmark" required>
 <label for="landmark">أقرب نقطة دلالة</label>
 <div class="error-message" id="errorLandmark">الرجاء إدخال نقطة دلالة</div>
 </div>
 
 <div class="form-row">
 <div class="form-group required floating">
-<input type="date" id="birthDate" name="تاريخ الولادة" required>
+<input type="date" id="birthDate" name="birthDate" required>
 <label for="birthDate">تاريخ الولادة</label>
 <div class="error-message" id="errorBirthDate">الرجاء اختيار تاريخ صحيح</div>
 </div>
 <div class="form-group required floating">
-<select id="subscriptionType" name="نوع الاشتراك" required>
+<select id="subscriptionType" name="subscriptionType" required>
 <option value="">اختر نوع الاشتراك</option>
 <option value="منزلي">منزلي</option>
 <option value="شركة">شركة</option>
@@ -124,7 +123,7 @@ body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:
 </div>
 
 <div class="form-group floating">
-<textarea id="notes" name="ملاحظات" rows="3" placeholder="ملاحظات إضافية..."></textarea>
+<textarea id="notes" name="notes" rows="3" placeholder="ملاحظات إضافية..."></textarea>
 <label for="notes">ملاحظات</label>
 </div>
 
@@ -138,7 +137,7 @@ body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:
 const form = document.getElementById('subscriptionForm');
 const successMessage = document.getElementById('successMessage');
 
-form.addEventListener('submit', async function(e){
+form.addEventListener('submit', function(e){
     e.preventDefault();
     
     // تنظيف رسائل الخطأ
@@ -146,44 +145,37 @@ form.addEventListener('submit', async function(e){
     
     let valid = true;
 
-    // تحقق الاسم الأول
+    // تحقق البيانات
     if(!form.firstName.value.trim()){ document.getElementById('errorFirstName').style.display='block'; valid=false; }
-    // تحقق الاسم الثاني
     if(!form.lastName.value.trim()){ document.getElementById('errorLastName').style.display='block'; valid=false; }
-    // تحقق رقم الهاتف
     if(!/^09\d{8}$/.test(form.phone.value)){ document.getElementById('errorPhone').style.display='block'; valid=false; }
-    // تحقق الرقم الوطني
     if(!/^\d{10}$/.test(form.nationalId.value)){ document.getElementById('errorNationalId').style.display='block'; valid=false; }
-    // تحقق العنوان
     if(!form.address.value.trim()){ document.getElementById('errorAddress').style.display='block'; valid=false; }
-    // تحقق نقطة الدلالة
     if(!form.landmark.value.trim()){ document.getElementById('errorLandmark').style.display='block'; valid=false; }
-    // تحقق تاريخ الولادة
     if(!form.birthDate.value){ document.getElementById('errorBirthDate').style.display='block'; valid=false; }
-    // تحقق نوع الاشتراك
     if(!form.subscriptionType.value){ document.getElementById('errorSubscriptionType').style.display='block'; valid=false; }
 
     if(valid){
-        const formData = new FormData(form);
-        try {
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            
-            if (response.ok) {
-                form.reset();
-                successMessage.style.display='block';
-                window.scrollTo({top:0, behavior:'smooth'});
-            } else {
-                alert('حدث خطأ أثناء الإرسال، حاول لاحقاً');
-            }
-        } catch (error) {
-            alert('حدث خطأ في الاتصال، تأكد من الإنترنت');
-        }
+        // تجهيز الرسالة للواتساب
+        const phoneNumber = "963998728834"; 
+        const message = `*طلب اشتراك جديد - هايبر نت* 📡%0A%0A` +
+                        `👤 *الاسم:* ${form.firstName.value} ${form.lastName.value}%0A` +
+                        `📱 *رقم الموبايل:* ${form.phone.value}%0A` +
+                        `🆔 *الرقم الوطني:* ${form.nationalId.value}%0A` +
+                        `🏠 *العنوان:* ${form.address.value}%0A` +
+                        `📍 *نقطة دلالة:* ${form.landmark.value}%0A` +
+                        `📅 *تاريخ الولادة:* ${form.birthDate.value}%0A` +
+                        `📦 *نوع الاشتراك:* ${form.subscriptionType.value}%0A` +
+                        `📝 *ملاحظات:* ${form.notes.value || 'لا يوجد'}`;
+
+        // الطريقة المباشرة والأكيدة لفتح واتساب
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+        
+        // فتح الرابط في نفس النافذة لضمان العمل في كل المتصفحات
+        window.location.href = whatsappUrl;
+        
+        // تصفير النموذج
+        form.reset( );
     }
 });
 </script>
