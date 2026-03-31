@@ -101,7 +101,9 @@ body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:
 <input type="text" id="nationalId" name="nationalId" required pattern="\d{11}" maxlength="11" inputmode="numeric">
 
 <label for="nationalId">الرقم الوطني</label>
-<div class="error-message" id="errorNationalId">الرجاء إدخال رقم وطني صحيح</div>
+
+<div class="error-message" id="errorNationalId">الرجاء إدخال 11 رقم للرقم الوطني</div>
+
 </div>
 </div>
 
@@ -201,7 +203,9 @@ form.addEventListener('submit', function(e){
     if(!form.firstName.value.trim()){ document.getElementById('errorFirstName').style.display='block'; valid=false; }
     if(!form.lastName.value.trim()){ document.getElementById('errorLastName').style.display='block'; valid=false; }
     if(!/^09\d{8}$/.test(form.phone.value)){ document.getElementById('errorPhone').style.display='block'; valid=false; }
-    if(!/^\d{10}$/.test(form.nationalId.value)){ document.getElementById('errorNationalId').style.display='block'; valid=false; }
+
+    if(!/^\d{11}$/.test(form.nationalId.value)){ document.getElementById('errorNationalId').style.display='block'; valid=false; }
+
     if(!form.address.value.trim()){ document.getElementById('errorAddress').style.display='block'; valid=false; }
     if(!form.landmark.value.trim()){ document.getElementById('errorLandmark').style.display='block'; valid=false; }
     if(!form.birthDate.value){ document.getElementById('errorBirthDate').style.display='block'; valid=false; }
