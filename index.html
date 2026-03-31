@@ -28,9 +28,19 @@ body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:
 .form-group.floating label { position:absolute; left:60px; top:18px; font-size:0.9rem; color:#94a3b8; background:rgba(10,14,46,0.8); padding:0 8px; transition: all 0.3s ease; pointer-events:none; font-weight:500; }
 .form-group.floating input:focus + label, .form-group.floating input:valid + label, .form-group.floating select:focus + label, .form-group.floating select:valid + label, .form-group.floating textarea:focus + label, .form-group.floating textarea:valid + label { top:-8px; font-size:0.75rem; color:#60a5fa; }
 .form-group.required label::after { content:" *"; color:#f87171; }
-.form-group input, .form-group select, .form-group textarea { width:100%; padding:20px 20px 20px 60px; border:2px solid rgba(255,255,255,0.2); border-radius:18px; font-size:1rem; background:rgba(255,255,255,0.08); color:#e0e6ed; font-family:inherit; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); backdrop-filter:blur(10px); }
+
+.form-group input, .form-group select, .form-group textarea { width:100%; padding:20px 20px 20px 60px; border:2px solid rgba(255,255,255,0.2); border-radius:18px; font-size:1rem; background:rgba(255,255,255,0.12); color:#ffffff; font-family:inherit; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); backdrop-filter:blur(10px); }
+
+.form-group select optgroup { background: linear-gradient(135deg, #059669, #10b981); color: white; font-weight: bold; }
+.form-group select optgroup:hover { background: linear-gradient(135deg, #047857, #059669); }
+.form-group select option { background:#1e3a8a; color:#e0e6ed; padding: 10px; }
+.form-group select option:nth-child(odd) { background:#1e40af; }
+
+
 .form-group input::placeholder, .form-group textarea::placeholder { color:#64748b; }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:#60a5fa; background:rgba(255,255,255,0.15); box-shadow:0 0 0 4px rgba(96,165,250,0.2); transform:translateY(-2px); }
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:#60a5fa; background:rgba(255,255,255,0.2); box-shadow:0 0 0 4px rgba(96,165,250,0.2); transform:translateY(-2px); }
+
 .input-icon { position:absolute; left:22px; top:50%; transform:translateY(-50%); font-size:1.25rem; color:#94a3b8; z-index:2; transition: color 0.3s ease; }
 .form-group:focus-within .input-icon { color:#60a5fa; }
 .error-message { color:#f87171; font-size:0.85rem; margin-top:8px; display:none; animation:shake 0.5s ease-in-out; }
@@ -87,7 +97,7 @@ body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:
 <div class="error-message" id="errorPhone">الرجاء إدخال رقم صحيح</div>
 </div>
 <div class="form-group required floating">
-<input type="text" id="nationalId" name="nationalId" required pattern="\d{10}">
+<input type="text" id="nationalId" name="nationalId" required pattern="\d{11}">
 <label for="nationalId">الرقم الوطني</label>
 <div class="error-message" id="errorNationalId">الرجاء إدخال رقم وطني صحيح</div>
 </div>
@@ -102,10 +112,29 @@ body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:
 <div class="form-group required floating">
 <input type="text" id="landmark" name="landmark" required>
 <label for="landmark">أقرب نقطة دلالة</label>
-<div class="error-message" id="errorLandmark">الرجاء إدخال نقطة دلالة</div>
-</div>
+		<div class="error-message" id="errorLandmark">الرجاء إدخال نقطة دلالة</div>
+	</div>
 
-<div class="form-row">
+	<div class="form-group required floating">
+		<select id="buildingFloors" name="buildingFloors" required>
+			<option value="">اختر عدد الطوابق</option>
+			<option value="1">1 طابق</option>
+			<option value="2">2 طابق</option>
+			<option value="3">3 طوابق</option>
+			<option value="4">4 طوابق</option>
+			<option value="5">5 طوابق</option>
+			<option value="6">6 طوابق</option>
+			<option value="7">7 طوابق</option>
+			<option value="8">8 طوابق</option>
+			<option value="9">9 طوابق</option>
+			<option value="10">10 طوابق</option>
+		</select>
+		<label for="buildingFloors">أعلى ارتفاع للصطح (طوابق)</label>
+		<div class="error-message" id="errorBuildingFloors">الرجاء اختيار عدد الطوابق</div>
+	</div>
+
+	<div class="form-row">
+
 <div class="form-group required floating">
 <input type="date" id="birthDate" name="birthDate" required>
 <label for="birthDate">تاريخ الولادة</label>
@@ -118,11 +147,32 @@ body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:
 <option value="شركة">شركة</option>
 </select>
 <label for="subscriptionType">نوع الاشتراك</label>
+
 <div class="error-message" id="errorSubscriptionType">الرجاء اختيار نوع الاشتراك</div>
 </div>
 </div>
 
+<div class="form-group required floating">
+<select id="speedPackage" name="speedPackage" required>
+<option value="">اختر باقة السرعة</option>
+<optgroup label="الباقات غير المحدودة">
+<option value="100mega-unlimited-4000000">100 ميغا - 4,000,000</option>
+<option value="50mega-unlimited-2000000">50 ميغا - 2,000,000</option>
+<option value="16mega-unlimited-400000">16 ميغا - 400,000</option>
+<option value="8mega-unlimited-275000">8 ميغا - 275,000</option>
+<option value="4mega-unlimited-175000">4 ميغا - 175,000</option>
+</optgroup>
+<optgroup label="الباقات المحدودة">
+<option value="8mega-250gb-175000">8 ميغا 250 غيغا - 175,000</option>
+<option value="4mega-160gb-100000">4 ميغا 160 غيغا - 100,000</option>
+</optgroup>
+</select>
+<label for="speedPackage">باقة السرعة</label>
+<div class="error-message" id="errorSpeedPackage">الرجاء اختيار باقة السرعة</div>
+</div>
+
 <div class="form-group floating">
+
 <textarea id="notes" name="notes" rows="3" placeholder="ملاحظات إضافية..."></textarea>
 <label for="notes">ملاحظات</label>
 </div>
@@ -153,9 +203,13 @@ form.addEventListener('submit', function(e){
     if(!form.address.value.trim()){ document.getElementById('errorAddress').style.display='block'; valid=false; }
     if(!form.landmark.value.trim()){ document.getElementById('errorLandmark').style.display='block'; valid=false; }
     if(!form.birthDate.value){ document.getElementById('errorBirthDate').style.display='block'; valid=false; }
+
     if(!form.subscriptionType.value){ document.getElementById('errorSubscriptionType').style.display='block'; valid=false; }
+    if(!form.buildingFloors.value){ document.getElementById('errorBuildingFloors').style.display='block'; valid=false; }
+    if(!form.speedPackage.value){ document.getElementById('errorSpeedPackage').style.display='block'; valid=false; }
 
     if(valid){
+
         // تجهيز الرسالة للواتساب
         const phoneNumber = "963998728834"; 
         const message = `*طلب اشتراك جديد - هايبر نت* 📡%0A%0A` +
@@ -164,9 +218,13 @@ form.addEventListener('submit', function(e){
                         `🆔 *الرقم الوطني:* ${form.nationalId.value}%0A` +
                         `🏠 *العنوان:* ${form.address.value}%0A` +
                         `📍 *نقطة دلالة:* ${form.landmark.value}%0A` +
-                        `📅 *تاريخ الولادة:* ${form.birthDate.value}%0A` +
+
+`📅 *تاريخ الولادة:* ${form.birthDate.value}%0A` +
+                        `🏢 *أعلى طابق:* ${form.buildingFloors.value}%0A` +
+                        `⚡ *باقة السرعة:* ${form.speedPackage.options[form.speedPackage.selectedIndex].text}%0A` +
                         `📦 *نوع الاشتراك:* ${form.subscriptionType.value}%0A` +
                         `📝 *ملاحظات:* ${form.notes.value || 'لا يوجد'}`;
+
 
         // الطريقة المباشرة والأكيدة لفتح واتساب
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
